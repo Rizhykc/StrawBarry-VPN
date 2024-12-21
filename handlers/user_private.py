@@ -1,29 +1,31 @@
-from aiogram import  F, types, Router
-from aiogram.filters import CommandStart, Command, or_f
+from aiogram import F, Router
+from aiogram.filters import CommandStart
+from aiogram.types import Message, CallbackQuery
 
-user_private_router = Router()
+import Button.keyboard as kb
 
-@user_private_router.message(CommandStart())
-async def start_cmd(message: types.Message):
-    await message.answer("Привет, я виртуальный помощник")
+user_router = Router()
 
-@user_private_router.message(or_f(Command("help"), (F.text.lower() == "Что ты умеешь?")))
-async def menu_cmd(message: types.Message):
-    await message.answer("Вот меню:")
+@user_router.message(CommandStart())
+async def start_cmd(message: Message):
+    await message.reply(f'Привет! {message.from_user.first_name}\nЯ семейный помощник по вопросу VPN или Proxi',
+                         reply_markup=kb.main_inline)
 
-@user_private_router.message(F.text.lower() == "VPN")
-@user_private_router.message(Command("vpn"))
-async def about_cmd(message: types.Message):
-    await message.answer("О нас:")
+@user_router.callback_query(F.data == 'help')
+async def help_menu(callback: CallbackQuery):
+    await callback.answer('Сейчас, сейчас')
+    await callback.message.edit_text('С чем тебе помочь ?', reply_markup=kb.help_inline)
 
+@user_router.callback_query(F.data == "vpn")
+async def vpn_menu(callback: CallbackQuery):
+    await callback.answer('Ты выбрал(а), vpn')
+    await callback.message.edit_text('Что именно тебя интересует ?', reply_markup=kb.vpn_inline)
 
-@user_private_router.message(F.text.lower() == "Proxi")
-@user_private_router.message(Command("proxi"))
-async def payment_cmd(message: types.Message):
-    await message.answer("Варианты оплаты:")
+@user_router.callback_query(F.data == "proxi")
+async def proxi_menu(callback: CallbackQuery):
+    await callback.answer('Ты выбрал(а), proxi')
 
-
-@user_private_router.message((F.text.lower() == "узнать свой ip"))
-@user_private_router.message(Command("2ip"))
-async def menu_cmd(message: types.Message):
-    await message.answer("Варианты доставки:")
+@user_router.callback_query(F.data == "2ip")
+async def you_ip(callback: CallbackQuery):
+    await callback.answer('А я знаю, где ты находишься))')
+    await callback.message.reply_location()

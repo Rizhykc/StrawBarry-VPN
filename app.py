@@ -4,16 +4,17 @@ import os
 from aiogram import Bot, Dispatcher, types
 from dotenv import load_dotenv
 
-from const import ALLOWED_UPDATES
 from common.bot_cmds_list import private
-from handlers.user_private import user_private_router
+from const import ALLOWED_UPDATES
+from handlers.user_private import user_router
 
 load_dotenv()
 
 bot = Bot(token=os.getenv('TOKEN'))
 dp = Dispatcher()
 
-dp.include_router(user_private_router)
+dp.include_router(user_router)
+# dp.include_router()
 
 
 
