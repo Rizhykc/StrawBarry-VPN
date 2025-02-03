@@ -2,8 +2,8 @@ from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.types import CallbackQuery, Message
 
-import Button.keyboard as kb
-from bot.const import TEXT
+from src.Button import keyboard as kb
+from const import TEXT
 # from ip.found_user import found_info_by_ip, get_ip_users
 
 user_router = Router()

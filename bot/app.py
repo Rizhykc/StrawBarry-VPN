@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher, types
 from dotenv import load_dotenv
 
 from src.common.bot_cmds_list import private
-from bot.const import ALLOWED_UPDATES
+from const import ALLOWED_UPDATES
 from src.handlers.user_private import user_router
 
 load_dotenv()
