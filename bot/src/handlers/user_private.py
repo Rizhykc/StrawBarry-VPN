@@ -1,17 +1,15 @@
+import const as txt
 from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.types import CallbackQuery, Message
-
-from src.Button import keyboard as kb
-from const import TEXT
-# from ip.found_user import found_info_by_ip, get_ip_users
+from src.Button import kbds_users as kb
 
 user_router = Router()
 
 
 @user_router.message(CommandStart())
 async def start_cmd(message: Message):
-    await message.reply(f'Привет! {message.from_user.first_name}\n {TEXT}',
+    await message.reply(f'Привет! {message.from_user.first_name}\n {txt.TEXT}',
                         reply_markup=kb.main_inline)
 
 
@@ -24,8 +22,9 @@ async def help_menu(callback: CallbackQuery):
 
 @user_router.callback_query(F.data == 'admin')
 async def admin_info(callback: CallbackQuery):
-    await callback.answer()
-    await callback.message.edit_text('инфа',
+    await callback.answer(text=txt.ADMIN_TEXT,
+                          show_alert=True)
+    await callback.message.edit_text(text=txt.ADMIN_HELP,
                                      reply_markup=kb.admin_inline)
 
 
@@ -39,14 +38,16 @@ async def vpn_menu(callback: CallbackQuery):
 @user_router.callback_query(F.data == 'vpn_inst')
 async def vpn_inst(callback: CallbackQuery):
     await callback.answer('Инструкция for you')
-    await callback.message.edit_text('Инструкция!',
+    # photo_list = types.FSInputFile('media\image.png')
+    # await callback.message.answer_photo()
+    await callback.message.edit_text(text=txt.VPN_INST,
                                      reply_markup=kb.vpn_inst)
 
 
 @user_router.callback_query(F.data == 'servers')
 async def vpn_server(callback: CallbackQuery):
     await callback.answer('')
-    await callback.message.edit_text('сервера!',
+    await callback.message.edit_text('сервера!:',
                                      reply_markup=kb.vpn_server)
 
 
@@ -59,22 +60,17 @@ async def proxi_menu(callback: CallbackQuery):
 
 @user_router.callback_query(F.data == "info")
 async def proxi_info(callback: CallbackQuery):
-    await callback.answer('')
-    await callback.message.edit_text('Информация о proxi',
+    await callback.message.edit_text(text=txt.PROXI_INFO,
                                      reply_markup=kb.proxi_info)
 
 
 @user_router.callback_query(F.data == "prox_inst")
 async def prox_inst(callback: CallbackQuery):
     await callback.answer('')
-    await callback.message.edit_text('Инструкция proxi',
+    await callback.message.edit_text(text=txt.PROXI_INST,
                                      reply_markup=kb.proxi_inst)
 
 
 @user_router.callback_query(F.data == "2ip")
 async def you_ip(callback: CallbackQuery):
-    # youre_ip = await get_ip_users()
-    # response = found_info_by_ip(ip=youre_ip)
     await callback.answer('Пока не работает!')
-    # await callback.message.edit_text('Пока не ',
-                                    #  reply_markup=kb.admin_inline)
