@@ -4,4 +4,7 @@ flake8==5.0.4
 flake8-docstrings==1.6.0
 pytest-timeout==2.1.0
 python-dotenv==0.20.0
+sqlalchemy==2.0.37
+aiosqlite==0.21.0
+asyncpg==0.30.0
 isort==5.13.2
