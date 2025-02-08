@@ -19,9 +19,9 @@ class Subscription(BaseModel):
     description: Mapped[str] = mapped_column(Text)
 
 
-class Proxi(BaseModel):
-    __tablename__ = 'proxi'
+# class Proxi(BaseModel):
+#     __tablename__ = 'proxi'
 
-    id: Mapped[int]
-    name: Mapped[str]
-    file: Mapped[int]
+#     id: Mapped[int]
+#     name: Mapped[str]
+#     file: Mapped[int]

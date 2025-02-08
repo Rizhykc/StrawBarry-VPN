@@ -1,8 +1,11 @@
-import const as txt
 from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.types import CallbackQuery, Message
+from sqlalchemy.ext.asyncio import AsyncSession
+
+import const as txt
 from src.Button import kbds_users as kb
+from src.database.orm_query import orm_get_subscriptions as get_sub
 
 user_router = Router()
 
@@ -45,10 +48,19 @@ async def vpn_inst(callback: CallbackQuery):
 
 
 @user_router.callback_query(F.data == 'servers')
-async def vpn_server(callback: CallbackQuery):
+async def vpn_server(callback: CallbackQuery, session: AsyncSession):
     await callback.answer('')
-    await callback.message.edit_text('сервера!:',
-                                     reply_markup=kb.vpn_server)
+    products = [await get_sub(session)]
+    if isinstance(products, list):
+        text = (
+            ''.join([f'<strong>{product.name}</strong>\n{product.description}'
+                     for product in products])
+        )
+    else:
+        text = f'<strong>{products.name}</strong>\n{products.description}'
+    await callback.message.edit_text(
+        f'сервера!:{text}', reply_markup=kb.vpn_server
+    )
 
 
 @user_router.callback_query(F.data == "proxi")
