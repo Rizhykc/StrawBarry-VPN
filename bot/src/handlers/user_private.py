@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 import const as txt
 from src.Button import kbds_users as kb
-from src.database.orm_query import orm_get_subscriptions as get_sub
+from src.database.orm_query import orm_get_subscriptions
 
 user_router = Router()
 
@@ -49,18 +49,14 @@ async def vpn_inst(callback: CallbackQuery):
 
 @user_router.callback_query(F.data == 'servers')
 async def vpn_server(callback: CallbackQuery, session: AsyncSession):
-    await callback.answer('')
-    products = [await get_sub(session)]
-    if isinstance(products, list):
-        text = (
-            ''.join([f'<strong>{product.name}</strong>\n{product.description}'
-                     for product in products])
+    await callback.answer('Идет загрузка!')
+    products = await orm_get_subscriptions(session)
+    for product in products:
+        await callback.message.answer(
+            text=f'\n{product.name}\n<pre>{product.description}</pre>',
         )
-    else:
-        text = f'<strong>{products.name}</strong>\n{products.description}'
-    await callback.message.edit_text(
-        f'сервера!:{text}', reply_markup=kb.vpn_server
-    )
+    await callback.message.edit_text(text='Это все сервера!',
+                                     reply_markup=kb.vpn_server)
 
 
 @user_router.callback_query(F.data == "proxi")

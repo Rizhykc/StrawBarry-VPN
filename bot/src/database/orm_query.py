@@ -1,7 +1,7 @@
 from sqlalchemy import select, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from bot.src.database.models import Subscription as Sub
+from src.database.models import Subscription as Sub
 
 
 async def orm_add_subscription(session: AsyncSession, data: dict):

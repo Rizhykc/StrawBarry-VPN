@@ -2,6 +2,8 @@ import asyncio
 import os
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 from dotenv import find_dotenv, load_dotenv
 
 from const import ALLOWED_UPDATES
@@ -14,7 +16,11 @@ from src.middlewares.db import DataBaseSession
 
 load_dotenv(find_dotenv())
 
-bot = Bot(token=os.getenv('TOKEN'))
+bot = Bot(
+    token=os.getenv('TOKEN'),
+    default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+)
+
 bot.admins_list = []
 dp = Dispatcher()
 

@@ -4,13 +4,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database.orm_query import (
-    orm_add_subscription,
-    orm_get_subscription,
-    orm_get_subscriptions,
-    orm_update_subscription,
-    orm_delete_subscription
-)
+from src.database.orm_query import (orm_add_subscription,
+                                    orm_get_subscriptions)
 from src.Button import kbds_admin as kb
 from src.filters.chat_types import ChatTypeFilter, IsAdmin
 
@@ -19,9 +14,7 @@ admin_router = Router()
 admin_router.message.filter(ChatTypeFilter(['private']), IsAdmin())
 
 
-# Код ниже для машины состояний (FSM)
 class AddProduct(StatesGroup):
-    # Шаги состояний
     name = State()
     description = State()
     texts = {
@@ -37,12 +30,14 @@ async def admin_features(message: types.Message):
 
 @admin_router.message(F.text == 'Ассортимент')
 async def starring_at_product(message: types.Message, session: AsyncSession):
-    for product in await orm_get_subscriptions(session):
-        await message.answer(text=f'<strong>{product.name}\
-                              </strong>\n{product.description}')
     await message.answer('ОК, вот список VPN')
+    for product in await orm_get_subscriptions(session):
+        await message.answer(text=f'\n{product.name}'
+                             f'\n<pre>{product.description}</pre>')
+    await message.answer('')
 
 
+# FSM
 @admin_router.message(StateFilter(None), F.text == 'Добавить подписку')
 async def add_product(message: types.Message, state: FSMContext):
     await message.answer(
@@ -99,7 +94,7 @@ async def add_name2(message: types.Message, state: FSMContext):
 
 
 @admin_router.message(AddProduct.description, F.text)
-async def add_keyvpn(
+async def add_key_vpn(
     message: types.Message,
     state: FSMContext,
     session: AsyncSession
@@ -112,14 +107,13 @@ async def add_keyvpn(
         await state.clear()
     except Exception as e:
         await message.answer(
-            f'Ошибка:\n{str(e)}\nБро опять что-то надурил',
+            f'Ошибка:\n{str(e)}\nБро опять что-то намудрил',
             reply_markup=kb.main_admin
         )
         await state.clear()
 
 
 @admin_router.message(AddProduct.description)
-async def add_description2(message: types.Message, state: FSMContext):
+async def add_description(message: types.Message, state: FSMContext):
     await message.answer('Вы ввели не допустимые данные, введите текст '
                          'описания подписки')
-Z

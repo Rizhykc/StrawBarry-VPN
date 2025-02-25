@@ -1,4 +1,8 @@
-from aiogram.types import KeyboardButton as keybutt, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import (
+    KeyboardButton as keybutt,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup
+)
 from aiogram.utils.keyboard import ReplyKeyboardMarkup
 
 
