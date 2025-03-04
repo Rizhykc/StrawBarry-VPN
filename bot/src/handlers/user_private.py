@@ -1,6 +1,5 @@
 from aiogram import F, Router
-from aiogram.filters import CommandStart
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import const as txt
@@ -8,12 +7,6 @@ from src.Button import kbds_users as kb
 from src.database.orm_query import orm_get_subscriptions
 
 user_router = Router()
-
-
-@user_router.message(CommandStart())
-async def start_cmd(message: Message):
-    await message.reply(f'Привет! {message.from_user.first_name}\n {txt.TEXT}',
-                        reply_markup=kb.main_inline)
 
 
 @user_router.callback_query(F.data == 'help')
@@ -34,17 +27,8 @@ async def admin_info(callback: CallbackQuery):
 @user_router.callback_query(F.data == "vpn")
 async def vpn_menu(callback: CallbackQuery):
     await callback.answer('Ты выбрал(а), vpn')
-    await callback.message.edit_text('Что именно тебя интересует ?',
-                                     reply_markup=kb.vpn_inline)
-
-
-@user_router.callback_query(F.data == 'vpn_inst')
-async def vpn_inst(callback: CallbackQuery):
-    await callback.answer('Инструкция for you')
-    # photo_list = types.FSInputFile('media\image.png')
-    # await callback.message.answer_photo()
     await callback.message.edit_text(text=txt.VPN_INST,
-                                     reply_markup=kb.vpn_inst)
+                                     reply_markup=kb.vpn_inline)
 
 
 @user_router.callback_query(F.data == 'servers')
@@ -54,22 +38,15 @@ async def vpn_server(callback: CallbackQuery, session: AsyncSession):
     for product in products:
         await callback.message.answer(
             text=f'\n{product.name}\n<pre>{product.description}</pre>',
+            reply_markup=kb.vpn_server
         )
-    await callback.message.edit_text(text='Это все сервера!',
-                                     reply_markup=kb.vpn_server)
 
 
 @user_router.callback_query(F.data == "proxi")
 async def proxi_menu(callback: CallbackQuery):
     await callback.answer('Ты выбрал(а), proxi')
-    await callback.message.edit_text('Что именно тебя интересует ?',
-                                     reply_markup=kb.proxi_inline)
-
-
-@user_router.callback_query(F.data == "info")
-async def proxi_info(callback: CallbackQuery):
     await callback.message.edit_text(text=txt.PROXI_INFO,
-                                     reply_markup=kb.proxi_info)
+                                     reply_markup=kb.proxi_inline)
 
 
 @user_router.callback_query(F.data == "prox_inst")
