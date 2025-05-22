@@ -1,10 +1,7 @@
+import const as txt
 from aiogram import F, Router
 from aiogram.types import CallbackQuery
-from sqlalchemy.ext.asyncio import AsyncSession
-
-import const as txt
 from src.Button import kbds_users as kb
-from src.database.orm_query import orm_get_subscriptions
 
 user_router = Router()
 
@@ -24,38 +21,42 @@ async def admin_info(callback: CallbackQuery):
                                      reply_markup=kb.admin_inline)
 
 
-@user_router.callback_query(F.data == "vpn")
+@user_router.callback_query(F.data == 'vpn')
 async def vpn_menu(callback: CallbackQuery):
     await callback.answer('Ты выбрал(а), vpn')
     await callback.message.edit_text(text=txt.VPN_INST,
                                      reply_markup=kb.vpn_inline)
 
 
-@user_router.callback_query(F.data == 'servers')
-async def vpn_server(callback: CallbackQuery, session: AsyncSession):
+@user_router.callback_query(F.data == 'country')
+async def vpn_country(callback: CallbackQuery):
     await callback.answer('Идет загрузка!')
-    products = await orm_get_subscriptions(session)
-    for product in products:
-        await callback.message.answer(
-            text=f'\n{product.name}\n<pre>{product.description}</pre>',
-            reply_markup=kb.vpn_server
-        )
+    await callback.message.edit_text(text='Выберите страну',
+                                     reply_markup=await kb.country())
 
 
-@user_router.callback_query(F.data == "proxi")
-async def proxi_menu(callback: CallbackQuery):
-    await callback.answer('Ты выбрал(а), proxi')
-    await callback.message.edit_text(text=txt.PROXI_INFO,
-                                     reply_markup=kb.proxi_inline)
+@user_router.callback_query(F.data.startswith('country_'))
+async def country(callback: CallbackQuery):
+    # item_data = await 
+    await callback.answer('Вы выбрали страну')
+    await callback.message.edit_text(text='<pre>item_data</pre>')
 
 
-@user_router.callback_query(F.data == "prox_inst")
-async def prox_inst(callback: CallbackQuery):
-    await callback.answer('')
-    await callback.message.edit_text(text=txt.PROXI_INST,
-                                     reply_markup=kb.proxi_inst)
+# Задел на будущее !
+# @user_router.callback_query(F.data == 'proxi')
+# async def proxi_menu(callback: CallbackQuery):
+#     await callback.answer('Ты выбрал(а), proxi')
+#     await callback.message.edit_text(text=txt.PROXI_INFO,
+#                                      reply_markup=kb.proxi_inline)
 
 
-@user_router.callback_query(F.data == "2ip")
-async def you_ip(callback: CallbackQuery):
-    await callback.answer('Пока не работает!')
+# @user_router.callback_query(F.data == 'prox_inst')
+# async def prox_inst(callback: CallbackQuery):
+#     await callback.answer('')
+#     await callback.message.edit_text(text=txt.PROXI_INST,
+#                                      reply_markup=kb.proxi_inst)
+
+
+# @user_router.callback_query(F.data == '2ip')
+# async def you_ip(callback: CallbackQuery):
+#     await callback.answer('Пока не работает!')

@@ -1,9 +1,8 @@
+import const as txt
 from aiogram.filters import Command, CommandStart
 from aiogram.types import BotCommand, Message
-
-import const as txt
-from src.handlers.user_private import user_router
 from src.Button import kbds_users as kb
+from src.handlers.user_private import user_router
 
 private = [
     BotCommand(command='start', description='Перезапуск бота'),

@@ -5,8 +5,8 @@ from aiogram.utils.keyboard import ReplyKeyboardMarkup
 main_admin = ReplyKeyboardMarkup(
     keyboard=[
         [
-            keybutt(text='Добавить подписку'),
-            keybutt(text='Ассортимент'),
+            keybutt(text='Добавить cтрану'),
+            keybutt(text='Добавить ключ к стране'),
         ]
     ],
     resize_keyboard=True,

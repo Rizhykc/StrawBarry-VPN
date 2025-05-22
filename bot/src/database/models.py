@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, String, Text, func
+from sqlalchemy import DateTime, ForeignKey, String, Text, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -11,17 +11,17 @@ class BaseModel(DeclarativeBase):
     )
 
 
-class Subscription(BaseModel):
-    __tablename__ = 'subscription'
+class Country(BaseModel):
+    __tablename__ = 'countries'
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(150), nullable=False)
-    description: Mapped[str] = mapped_column(Text)
 
 
-# class Proxi(BaseModel):
-#     __tablename__ = 'proxi'
+class Key(BaseModel):
+    __tablename__ = 'keys'
 
-#     id: Mapped[int]
-#     name: Mapped[str]
-#     file: Mapped[int]
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(150), nullable=False)
+    key: Mapped[str] = mapped_column(Text)
+    country: Mapped[int] = mapped_column(ForeignKey('countries.id'))
