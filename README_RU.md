@@ -1,4 +1,10 @@
 [![Main_workflow](https://github.com/Rizhykc/StrawBarry-VPN/actions/workflows/main.yml/badge.svg)](https://github.com/Rizhykc/StrawBarry-VPN/actions/workflows/main.yml)
+
+<p align="center">
+    <a href="https://github.com/Rizhykc/StrawBarry-VPN/blob/main/README.md"><u><b>ENGLISH</b></u></a> •
+    <a href="https://github.com/Rizhykc/StrawBarry-VPN/blob/main/README_RU.md"><u><b>РУССКИЙ</b></u></a>
+</p>
+
 # StrawBerry - VPN
 
 🚀 Надоели одноразовые VPN-приложения из Play Market'а, которые работают 3 дня и исчезают? Этот бот - другое дело.
