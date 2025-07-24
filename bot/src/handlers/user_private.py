@@ -37,26 +37,5 @@ async def vpn_country(callback: CallbackQuery):
 
 @user_router.callback_query(F.data.startswith('country_'))
 async def country(callback: CallbackQuery):
-    # item_data = await 
     await callback.answer('Вы выбрали страну')
     await callback.message.edit_text(text='<pre>item_data</pre>')
-
-
-# Задел на будущее !
-# @user_router.callback_query(F.data == 'proxi')
-# async def proxi_menu(callback: CallbackQuery):
-#     await callback.answer('Ты выбрал(а), proxi')
-#     await callback.message.edit_text(text=txt.PROXI_INFO,
-#                                      reply_markup=kb.proxi_inline)
-
-
-# @user_router.callback_query(F.data == 'prox_inst')
-# async def prox_inst(callback: CallbackQuery):
-#     await callback.answer('')
-#     await callback.message.edit_text(text=txt.PROXI_INST,
-#                                      reply_markup=kb.proxi_inst)
-
-
-# @user_router.callback_query(F.data == '2ip')
-# async def you_ip(callback: CallbackQuery):
-#     await callback.answer('Пока не работает!')
