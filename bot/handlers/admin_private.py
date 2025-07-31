@@ -4,10 +4,10 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.Button import kbds_admin as kb
-from src.Button import kbds_users as kbs
-from src.database.orm_query import orm_add_country
-from src.filters.chat_types import ChatTypeFilter, IsAdmin
+from Button import kbds_admin as kb
+from Button import kbds_users as kbs
+from database.orm_query import orm_add_country
+from filters.chat_types import ChatTypeFilter, IsAdmin
 
 admin_router = Router()
 admin_router.message.filter(ChatTypeFilter(['private']), IsAdmin())

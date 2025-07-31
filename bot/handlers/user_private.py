@@ -1,7 +1,8 @@
-import const as txt
+import utils.const as txt
 from aiogram import F, Router
 from aiogram.types import CallbackQuery
-from src.Button import kbds_users as kb
+
+from Button import kbds_users as kb
 
 user_router = Router()
 
@@ -37,7 +38,7 @@ async def vpn_country(callback: CallbackQuery):
 
 @user_router.callback_query(F.data.startswith('country_'))
 async def country(callback: CallbackQuery):
-    # item_data = await 
+    # item_data = await
     await callback.answer('Вы выбрали страну')
     await callback.message.edit_text(text='<pre>item_data</pre>')
 

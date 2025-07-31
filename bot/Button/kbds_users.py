@@ -1,7 +1,8 @@
 from aiogram.types import InlineKeyboardButton as In
 from aiogram.types import InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from src.database.orm_query import orm_get_countries, orm_get_keys
+
+from database.orm_query import orm_get_countries, orm_get_keys
 
 main_inline = InlineKeyboardMarkup(inline_keyboard=[
     [In(text='Нажми сюда, чтобы узнать, что я умею',
