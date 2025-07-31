@@ -1,20 +1,14 @@
-from aiogram.types import (
-    KeyboardButton as keybutt,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup
-)
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import KeyboardButton as keybutt
 from aiogram.utils.keyboard import ReplyKeyboardMarkup
 
-
-kb = [
-    [
-        keybutt(text='Добавить подписку'),
-        keybutt(text='Ассортимент'),
-    ]
-]
-
 main_admin = ReplyKeyboardMarkup(
-    keyboard=kb,
+    keyboard=[
+        [
+            keybutt(text='Ассортимент'),
+            keybutt(text='Добавить ключ'),
+        ]
+    ],
     resize_keyboard=True,
     input_field_placeholder='Что Вас интересует?'
 )

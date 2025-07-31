@@ -4,15 +4,15 @@ import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from dotenv import find_dotenv, load_dotenv
 
-from const import ALLOWED_UPDATES
-from src.common.bot_cmds_list import private
-from src.database.engine import create_db, drop_db, session_maker
-from src.handlers.admin_private import admin_router
-from src.handlers.admining_chat import list_router
-from src.handlers.user_private import user_router
-from src.middlewares.db import DataBaseSession
+from utils.const import ALLOWED_UPDATES
+from dotenv import find_dotenv, load_dotenv
+from bot.common.bot_cmds_list import private
+# from bot.database.engine import create_db, drop_db, session_maker
+from bot.handlers.admin_private import admin_router
+from bot.handlers.admining_chat import list_router
+from bot.handlers.user_private import user_router
+from bot.middlewares.db import DataBaseSession
 
 load_dotenv(find_dotenv())
 

@@ -10,3 +10,4 @@ venv.bak/
 .vscode/
 
 __pycache__/
+env_const.py

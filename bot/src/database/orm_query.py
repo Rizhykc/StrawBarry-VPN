@@ -1,43 +1,45 @@
-from sqlalchemy import select, update, delete
+from sqlalchemy import delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
+from src.database.models import Key
 
-from src.database.models import Subscription as Sub
 
-
-async def orm_add_subscription(session: AsyncSession, data: dict):
-    obj = Sub(
+async def orm_add_key(session: AsyncSession, data: dict):
+    """Добавление ключа в базу данных."""
+    obj = Key(
         name=data['name'],
-        description=data['description'],
+        key=data['key'],
     )
     session.add(obj)
     await session.commit()
 
 
-async def orm_get_subscriptions(session: AsyncSession):
-    query = select(Sub)
-    result = await session.execute(query)
+async def get_all_keys(session: AsyncSession):
+    """Вывод всех ключей из одной страны в базе данных."""
+    result = await session.execute(select(Key))
     return result.scalars().all()
 
 
-async def orm_get_subscription(session: AsyncSession, product_id: int):
-    query = select(Sub).where(Sub.id == product_id)
+async def orm_get_key(session: AsyncSession, key_id: int):
+    """Вывод отдельного ключа из базы данных."""
+    query = select(Key).where(Key.id == key_id)
     result = await session.execute(query)
     return result.scalar()
 
 
-async def orm_update_subscription(
-    session: AsyncSession,
-    product_id: int, data
-):
-    query = update(Sub).where(Sub.id == product_id).values(
-        name=data['name'],
-        description=data['description'],
-    )
+async def orm_delete_key(session: AsyncSession, key_id: int):
+    """Удаление ключа из базы данных."""
+    query = delete(Key).where(Key.id == key_id)
     await session.execute(query)
     await session.commit()
 
 
-async def orm_delete_subscription(session: AsyncSession, product_id: int):
-    query = delete(Sub).where(Sub.id == product_id)
+async def orm_update_key(
+    session: AsyncSession,
+    key_id: int, data
+):
+    """Обновление ключа в базе данных."""
+    query = update(Key).where(Key.id == key_id).values(
+        name=data['name'],
+    )
     await session.execute(query)
     await session.commit()
