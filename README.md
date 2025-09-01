@@ -1,4 +1,10 @@
-[![Main_workflow](https://github.com/Rizhykc/StrawBarry-VPN/actions/workflows/main.yml/badge.svg)](https://github.com/Rizhykc/StrawBarry-VPN/actions/workflows/main.yml)
+ARCHIVED WARNING Project discontinued due to new VPN restrictions law
+
+⚠️ Warning: This repository is archived and read-only. Reason for discontinuation: Further development and maintenance of this project have been terminated indefinitely due to the enactment of new legislation in the Russian Federation that prohibits the advertising, distribution, and educational use of VPN technologies.
+
+This law makes it impossible to continue working on the project legally. The repository is kept for historical purposes only and will not receive any updates, security patches, or support.
+
+Thank you for your contributions and interest.
 
 <p align="center">
     <a href="https://github.com/Rizhykc/StrawBarry-VPN/blob/main/README.md"><u><b>ENGLISH</b></u></a> •
